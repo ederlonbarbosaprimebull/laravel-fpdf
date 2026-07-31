@@ -1,0 +1,51 @@
+name: Tests
+
+on:
+  - push
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['8.3', '8.4']
+        laravel: [11.*, 12.*]
+        dependency-version: [prefer-stable]
+        include:
+          - laravel: 12.*
+            testbench: 10.*
+          - laravel: 11.*
+            testbench: 9.*
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.32.0
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+        env:
+          APP_ENV: testing
+
+      - name: Run tests
+        run: composer run test
+        env:
+          APP_ENV: testing
+
+      - uses: codecov/codecov-action@v5
+        name: Push coverage to codecov
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false

@@ -1,0 +1,60 @@
+{
+    "name": "codedge/laravel-fpdf",
+    "description": "Laravel package to include Fpdf. It ships with Fpdf 1.86.",
+    "license": "MIT",
+    "keywords": [
+        "fpdf",
+        "laravel",
+        "pdf"
+    ],
+    "authors": [
+        {
+            "name": "Holger Lösken",
+            "email": "holger.loesken@codedge.de"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/codedge/laravel-fpdf/issues",
+        "source": "https://github.com/codedge/laravel-fpdf"
+    },
+    "require": {
+        "php": "~8.3 || ~8.4",
+        "illuminate/support": "^11.0 || ^12.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.39",
+        "orchestra/testbench": "^9.0 || ^10.0",
+        "phpunit/phpunit": "^10.5 || ^11.5.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Codedge\\Fpdf\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codedge\\Fpdf\\Test\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {
+                "Fpdf": "Codedge\\Fpdf\\Facades\\Fpdf"
+            },
+            "providers": [
+                "Codedge\\Fpdf\\FpdfServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit --coverage-clover coverage.xml"
+    }
+}
