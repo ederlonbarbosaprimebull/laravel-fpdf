@@ -22,7 +22,7 @@
         "illuminate/support": "^11.0 || ^12.0"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.39",
+        "ergebnis/composer-normalize": "^2.52",
         "orchestra/testbench": "^9.0 || ^10.0",
         "phpunit/phpunit": "^10.5 || ^11.5.3"
     },
